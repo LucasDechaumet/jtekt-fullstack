@@ -1,0 +1,41 @@
+<div class="login-container">
+  <form class="login-form" (ngSubmit)="onSubmit()">
+    <img src="assets/img/jtekt-big-logo.png" alt="Logo" class="logo" />
+    <div class="form-group">
+      <p-iconField iconPosition="left">
+        <p-inputIcon styleClass="pi pi-envelope"></p-inputIcon>
+        <input
+          type="text"
+          pInputText
+          placeholder="Email"
+          [(ngModel)]="email"
+          name="email"
+          required
+        />
+      </p-iconField>
+    </div>
+    <div class="form-group">
+      <p-iconField iconPosition="left">
+        <p-inputIcon styleClass="pi pi-key"></p-inputIcon>
+        <input
+          type="password"
+          pInputText
+          placeholder="Mot de passe"
+          [(ngModel)]="password"
+          name="password"
+          required
+        />
+      </p-iconField>
+    </div>
+    <p-button
+      label="Connexion"
+      icon="pi pi-sign-in"
+      [loading]="loading"
+      type="submit"
+    ></p-button>
+    <div class="sign-up-link">
+      <a href="#">Première connexion ou mot de passe oublié ?</a>
+    </div>
+  </form>
+</div>
+<p-toast position="bottom-center" key="bc" />

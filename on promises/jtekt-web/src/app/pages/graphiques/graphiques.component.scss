@@ -1,0 +1,18 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1rem;
+}
+
+.bartool {
+  display: flex;
+  justify-content: center;
+  gap: 5%;
+  padding-bottom: 1rem;
+}
+
+.chart {
+  display: flex;
+  justify-content: center;
+}

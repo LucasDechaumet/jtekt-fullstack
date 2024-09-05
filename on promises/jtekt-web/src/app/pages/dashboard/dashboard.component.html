@@ -1,0 +1,116 @@
+<div style="position: relative; height: calc(100vh - 95px)">
+  <!-- Votre table -->
+  <p-table
+    #dt1
+    [value]="data"
+    [tableStyle]="{ 'min-width': '50rem', cursor: 'pointer' }"
+    styleClass="p-datatable-striped p-datatable-sm"
+    selectionMode="single"
+    [loading]="loading"
+    [scrollable]="true"
+    scrollHeight="calc(100vh - 95px)"
+    [resizableColumns]="true"
+    [globalFilterFields]="globalFilterFields"
+    sortMode="multiple"
+    [multiSortMeta]="multiSortMeta"
+  >
+    <!-- caption -->
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <p-iconField iconPosition="left" class="ml-auto">
+          <p-inputIcon>
+            <i class="pi pi-search"></i>
+          </p-inputIcon>
+          <input
+            pInputText
+            type="text"
+            (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+            placeholder="Rechercher"
+            style="height: 20px"
+          />
+        </p-iconField>
+      </div>
+    </ng-template>
+
+    <!-- header -->
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="numeroArmoire">N°Armoire</th>
+        <th>N°Série</th>
+        <th>N°Licence</th>
+        <th>Désignation</th>
+        <th>Type</th>
+        <th pSortableColumn="code">Code</th>
+        <th>Etat</th>
+        <th>Utilisateur</th>
+        <th>Date de l'état</th>
+        <th *ngIf="roles.includes('admin')">Actions</th>
+      </tr>
+    </ng-template>
+
+    <!-- body -->
+    <ng-template pTemplate="body" let-product>
+      <tr
+        class="allDataColumns"
+        (click)="onRowClicked($event, product)"
+        [ngStyle]="{ 'background-color': product.type === 'ERROR' ? 'yellow' : '' }"
+      >
+        <td>{{ product.storage }}</td>
+        <td>{{ product.serial_number }}</td>
+        <td>{{ product.licence_number }}</td>
+        <td
+          style="
+            max-width: 350px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          "
+          pTooltip="{{ product.name }}"
+          tooltipPosition="top"
+        >
+          {{ product.name }}
+        </td>
+        <td>{{ product.type }}</td>
+        <td>{{ product.meanNumber }}</td>
+        <td>
+          <p-tag
+            [severity]="product.in_out === 'E' ? 'success' : 'danger'"
+            [value]="product.in_out === 'E' ? 'Entrée' : 'Sortie'"
+          ></p-tag>
+        </td>
+        <td>{{ product.in_out == "E" ? "" : product.username }}</td>
+        <td>{{ product.lastDate | date : "dd/MM/yyyy" }}</td>
+        <td *ngIf="roles.includes('admin')">
+          <button
+            pButton
+            type="button"
+            icon="pi pi-trash"
+            class="p-button-danger p-button-sm"
+            style="height: 1.5rem"
+            (click)="deleteProduct(product, $event)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td [attr.colspan]="20">Aucune donnée</td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <!-- SpeedDial -->
+  <p-speedDial
+    *ngIf="roles.includes('admin')"
+    class="speeddial"
+    [model]="items"
+    direction="up"
+  ></p-speedDial>
+
+  <!-- Hidden File Input -->
+  <input #fileInput type="file" style="display: none" (change)="onFileSelected($event)" />
+
+  <p-confirmDialog></p-confirmDialog>
+  <p-toast></p-toast>
+</div>

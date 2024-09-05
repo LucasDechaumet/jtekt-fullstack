@@ -1,0 +1,32 @@
+.admin-layout {
+  display: flex;
+  height: 100%;
+
+  .admin-layout-main {
+    background-color: #f2f4f6;
+    min-height: 100vh;
+    width: 100%;
+    padding-left: var(--sidebar-width);
+    transition: padding-left 0.3s cubic-bezier(0, 0, 0.2, 1);
+
+    &.sidebar-collapsed {
+      padding-left: 0;
+    }
+
+    .admin-layout-content {
+      padding: 0 0.5rem;
+    }
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .admin-layout {
+    .admin-layout-main {
+      padding-left: 0;
+
+      &.sidebar-collapsed {
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+    }
+  }
+}

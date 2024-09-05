@@ -1,0 +1,38 @@
+<div class="content">
+  <div class="bartool">
+    <p-calendar
+      [(ngModel)]="rangeDates"
+      selectionMode="range"
+      [readonlyInput]="true"
+      placeholder="Sélectionner les dates"
+      (onSelect)="onDateSelect()"
+      dateFormat="dd/mm/yy"
+    ></p-calendar>
+    <p-dropdown
+      *ngIf="selectedRangeDates"
+      [options]="types"
+      [(ngModel)]="selectedType"
+      optionLabel="name"
+      placeholder="Sélectionner un type"
+      (onChange)="onTypeChange()"
+      [editable]="true"
+    ></p-dropdown>
+    <p-dropdown
+      *ngIf="selectedType"
+      [options]="codes"
+      [(ngModel)]="selectedCode"
+      optionLabel="name"
+      placeholder="Sélectionner un code"
+      (onChange)="onCodeChange()"
+    ></p-dropdown>
+  </div>
+  <div class="chart">
+    <p-chart
+      type="bar"
+      width="95vw"
+      height="85vh"
+      [data]="basicData"
+      [options]="basicOptions"
+    ></p-chart>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+# Fichiers générés par Maven et Gradle
+target/
+build/
+!**/src/main/**/target/
+!**/src/test/**/target/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# Maven Wrapper
+.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+
+# Logs
+logs/
+*.log
+
+# IDE spécifiques
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### STS (Spring Tool Suite) ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### VS Code ###
+.vscode/
+
+# Eclipse / STS ###
+*.classpath
+*.project
+*.settings/
+
+# Autres fichiers temporaires et systèmes
+.DS_Store
+Thumbs.db
+
+# Fichiers système
+*.swp
+*~
+*.bak
+*.tmp
+*.orig
+*.old
+
+# Fichiers de compilation Java
+*.class
+
+# Fichiers de sécurité potentiellement sensibles
+*.key
+*.pem
+*.crt
+*.env
+
+# Répertoires de couverture de tests
+/coverage/
+.cobertura/
+
+# Fichiers d'export/import
+*.export/
+*.import/
+
+# Requêtes HTTP utilisées pour tester des APIs dans IntelliJ
+.http
+
+# Fichiers générés lors du packaging ou de la documentation
+out/
+!.mvn/wrapper/maven-wrapper.jar

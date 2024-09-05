@@ -1,0 +1,72 @@
+version: "3.8"
+ 
+services:
+  # on va garder un seul nginx, et serve les fichiers statiques oklar
+  # nginx:
+  #   image: nginx:alpine
+  #   container_name: nginx
+  #   ports:
+  #     - "443:443" # Expose NGINX sur le port 443
+  #   volumes:
+  #     - ./nginx/nginx.conf:/etc/nginx/nginx.conf # Configuration NGINX personnalisée
+  #     - ./nginx/certs:/etc/nginx/certs # Certificats SSL pour HTTPS
+  #   depends_on:
+  #     - jtekt-server
+  #     - jtekt-web
+  #   networks:
+  #     - jtekt-network
+ 
+  jtekt-server:
+    build:
+      context: ./jtekt-server
+      dockerfile: Dockerfile
+    container_name: jtekt-server
+    ports:
+      - "9000:9000" # Expose le backend sur le port 9000
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/jtekt
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=AkensysJtekt2024! # Changez avec le mot de passe réel
+    depends_on:
+      - mysql
+    networks:
+      - jtekt-network
+ 
+  jtekt-nginx:
+    build:
+      context: ./jtekt-web
+      dockerfile: Dockerfile
+    container_name: jtekt-nginx
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf # Configuration NGINX personnalisée
+      - ./nginx/certs:/etc/nginx/certs # Certificats SSL pour HTTPS
+    depends_on:
+      - jtekt-server
+    networks:
+      - jtekt-network
+ 
+  mysql:
+    image: mysql:8.0
+    container_name: jtekt-mysql
+    ports:
+      - "3306:3306" # Expose MySQL sur le port 3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=AkensysJtekt2024! # Changez avec le mot de passe réel
+      - MYSQL_DATABASE=jtektdb
+      - MYSQL_USER=jtektuser
+      - MYSQL_PASSWORD=yourpassword
+    volumes:
+      - mysql-data:/var/lib/mysql # Pour persister les données de la DB
+      - ./db/init:/docker-entrypoint-initdb.d # Charger les données de votre ancienne base de données
+    networks:
+      - jtekt-network
+ 
+networks:
+  jtekt-network:
+    driver: bridge
+ 
+volumes:
+  mysql-data:

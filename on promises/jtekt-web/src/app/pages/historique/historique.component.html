@@ -1,0 +1,55 @@
+<p-table
+  #dt1
+  [value]="data"
+  [tableStyle]="{ 'min-width': '50rem', cursor: 'pointer' }"
+  styleClass="p-datatable-striped p-datatable-sm"
+  selectionMode="single"
+  [loading]="loading"
+  [scrollable]="true"
+  scrollHeight="calc(100vh - 95px)"
+  [resizableColumns]="true"
+  [globalFilterFields]="globalFilterFields"
+  sortField="date"
+  [sortOrder]="-1"
+>
+  <ng-template pTemplate="caption">
+    <div class="flex">
+      <p-iconField iconPosition="left" class="ml-auto">
+        <p-inputIcon>
+          <i class="pi pi-search"></i>
+        </p-inputIcon>
+        <input
+          pInputText
+          type="text"
+          (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+          placeholder="Rechercher"
+          style="height: 20px"
+        />
+      </p-iconField>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Nom</th>
+      <th pSortableColumn="date">Date</th>
+      <th>Etat</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-product>
+    <tr class="allDataColumns">
+      <td>{{ product.username }}</td>
+      <td>{{ product.created_at | date : "dd/MM/yyyy" }}</td>
+      <td>
+        <p-tag
+          [severity]="product.in_out === 'E' ? 'success' : 'danger'"
+          [value]="product.in_out === 'E' ? 'Entrée' : 'Sortie'"
+        ></p-tag>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td [attr.colspan]="20">Aucunes données</td>
+    </tr>
+  </ng-template>
+</p-table>

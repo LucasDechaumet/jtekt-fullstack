@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    active: prod
+
+  jackson:
+    mapper:
+      ACCEPT_CASE_INSENSITIVE_PROPERTIES: true
+
+springdoc:
+  default-produces-media-type: application/json
+
+server:
+  port: 9000

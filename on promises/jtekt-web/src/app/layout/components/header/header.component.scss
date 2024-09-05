@@ -1,0 +1,43 @@
+:host ::ng-deep header {
+  padding: 0.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  width: 100%;
+  background-color: white;
+  margin-bottom: 0rem;
+
+  .title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    h2 {
+      font-size: 0.9rem;
+    }
+
+    button {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50px;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      border: none;
+
+      i {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 991px) {
+  header {
+    button {
+      display: flex;
+    }
+  }
+}

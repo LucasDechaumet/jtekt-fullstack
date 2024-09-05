@@ -1,0 +1,14 @@
+<div class="admin-layout">
+    <!-- Sidebar -->
+    <app-sidebar></app-sidebar>
+    <div class="admin-layout-main"
+         [style.--sidebar-width]="sidebarService.sidebarConfig.width"
+         [class.sidebar-collapsed]="sidebarService.getSidebarState">
+        <!-- Header -->
+        <app-header></app-header>
+        <div class="admin-layout-content">
+            <!-- Router outlet content -->
+            <router-outlet />
+        </div>
+    </div>
+</div>

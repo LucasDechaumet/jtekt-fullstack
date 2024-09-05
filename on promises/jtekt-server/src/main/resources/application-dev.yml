@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/jtekt
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update # validate is for production environment and update is for development environment
+    open-in-view: false
+
+application:
+  security:
+    jwt:
+      secret-key: 66E8C65F5EA93CBBE6815CDE575B1FEEDE5A34E97B78462A81A3EC378B # This is an example of secret key for JWT token
+      expiration: 25200000 # 7 hours

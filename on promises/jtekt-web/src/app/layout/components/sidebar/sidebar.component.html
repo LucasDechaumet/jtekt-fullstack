@@ -1,0 +1,70 @@
+<!-- Sidebar -->
+<div
+  [style.--sidebar-active-color]="sidebarConfig.activeColor"
+  [style.--sidebar-hover-color]="sidebarConfig.hoverColor"
+  [style.--sidebar-default-color]="sidebarConfig.defaultColor"
+  [style.--sidebar-width]="sidebarConfig.width"
+  class="sidebar"
+  id="sidebar"
+  (mouseenter)="onHoverSidebar(true)"
+  (mouseleave)="onHoverSidebar(false)"
+  [class.sidebar-collapsed]="sidebarService.getSidebarState"
+>
+  <!-- Logo -->
+  <div class="logo">
+    <img
+      [class]="logoPath === logoPaths.logoSingle ? 'logo-single' : 'logo-full'"
+      [src]="logoPath"
+      alt=""
+    />
+  </div>
+
+  <!-- Sidebar items -->
+  <div class="items-wrapper">
+    @for (item of items; track item) {
+    <div class="items-group">
+      <h4>{{ item.title }}</h4>
+      <ul class="first-level-items">
+        @for (child of item.children; track child) {
+        <li>
+          <a
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="onItemClick(child)"
+            [routerLink]="child.path || null"
+          >
+            <i [class]="'pi ' + child.icon"></i>
+            <span>{{ child.title }}</span>
+            @if (child.children) {
+            <i
+              class="pi pi-angle-down dropdown-icon"
+              [class.active]="child.collapsed"
+            ></i>
+            }
+          </a>
+
+          <ul
+            class="second-level-items"
+            *ngIf="child.children"
+            [class.collapsed]="child.children.length && child.collapsed"
+          >
+            @for (subChild of child.children; track subChild) {
+            <li>
+              <a
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                [routerLink]="subChild.path"
+              >
+                <i [class]="'pi ' + subChild.icon"></i>
+                <span>{{ subChild.title }}</span>
+              </a>
+            </li>
+            }
+          </ul>
+        </li>
+        }
+      </ul>
+    </div>
+    }
+  </div>
+</div>

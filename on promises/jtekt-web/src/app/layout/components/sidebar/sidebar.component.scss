@@ -1,0 +1,225 @@
+@import "../../../../assets/scss/utils/variables.scss";
+
+.sidebar {
+  z-index: 1000;
+  width: var(--sidebar-width);
+  position: fixed;
+  left: 0;
+  background-color: white;
+  height: 100vh;
+  transition: width 0.3s cubic-bezier(0, 0, 0.2, 1);
+
+  /***************** LOGO *******************/
+  .logo {
+    display: flex;
+    padding: 1.5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .logo-single {
+      height: 1.25rem;
+      width: 1.0625rem;
+    }
+
+    .logo-full {
+      height: 2rem;
+      width: auto;
+    }
+  }
+
+  /***************** SIDEBAR ACTIVE *******************/
+  &.sidebar-collapsed {
+    width: 16rem;
+
+    .logo {
+      justify-content: space-between;
+      padding: 1.5rem 1.5rem;
+    }
+
+    .items-wrapper {
+      overflow-y: auto;
+
+      .items-group {
+        h4 {
+          opacity: 1;
+        }
+
+        ul li a {
+          justify-content: initial;
+          gap: 0.5rem;
+
+          .dropdown-icon {
+            opacity: 1;
+            width: initial;
+            margin-left: auto;
+          }
+
+          span {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+
+  /***************** SIDEBAR HOVERED *******************/
+  &:hover {
+    width: 12rem;
+
+    .logo {
+      justify-content: space-between;
+      padding: 1.5rem 1.5rem;
+    }
+
+    .items-wrapper {
+      overflow-y: auto;
+
+      .items-group {
+        h4 {
+          opacity: 1;
+        }
+
+        .second-level-items {
+          display: flex;
+        }
+
+        ul li a {
+          justify-content: initial;
+          gap: 0.5rem;
+
+          .dropdown-icon {
+            opacity: 1;
+            width: initial;
+            margin-left: auto;
+          }
+
+          span {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+
+  /***************** SIDEBAR ITEMS *******************/
+  .items-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: calc(100% - 1.5rem);
+    overflow-y: hidden;
+    padding-bottom: 5rem;
+
+    .items-group {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      h4 {
+        opacity: 0;
+        font-size: 0.857rem;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: $root-menuitem-text-color;
+        padding: 1rem 1.25rem 1rem 1.5rem;
+        text-wrap: nowrap;
+        user-select: none;
+      }
+
+      .first-level-items,
+      .second-level-items {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+
+        li {
+          width: 100%;
+
+          a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            color: var(--sidebar-default-color);
+            user-select: none;
+
+            span {
+              font-size: 0.875rem;
+              opacity: 0;
+              color: inherit;
+              text-wrap: nowrap;
+              margin-right: auto;
+              width: 0;
+              margin: 0;
+            }
+
+            i {
+              font-size: 1.25rem;
+              width: 1.25rem;
+              color: inherit;
+            }
+
+            .dropdown-icon {
+              opacity: 0;
+              font-size: 1rem;
+              transition: transform 0.3s;
+              width: 0;
+
+              &.active {
+                transform: rotate(-180deg);
+              }
+            }
+
+            &:hover {
+              cursor: pointer;
+              color: var(--sidebar-hover-color);
+            }
+
+            &.active {
+              color: var(--sidebar-active-color);
+            }
+          }
+        }
+      }
+
+      .second-level-items {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+        display: none;
+
+        li a {
+          padding-left: 2.5rem;
+        }
+
+        &.collapsed {
+          transition: max-height 0.3s ease-in;
+          max-height: 500px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .sidebar {
+    transform: translate(-100%);
+    transition: transform 0.3s;
+
+    .logo {
+      display: none;
+    }
+
+    &.sidebar-collapsed {
+      transform: translate(0);
+
+      .logo {
+        display: block;
+      }
+    }
+  }
+}
